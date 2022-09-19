@@ -1,0 +1,11 @@
+--- ## we need to claim the persistent volume so that we can use it with our cluster
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mypvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
