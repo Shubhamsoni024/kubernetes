@@ -1,0 +1,12 @@
+--- # Now we are working the with the service in the kubernetes
+kind: Service
+apiVersion: v1
+metadata:
+  name: myclusterip
+spec:
+  ports:
+  - port: 80 ## container ports exposed
+    targetPort: 80 ## pods ports exposed
+  selector:
+    env: development
+  type: ClusterIP

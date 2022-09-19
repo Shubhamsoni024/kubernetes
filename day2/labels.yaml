@@ -1,0 +1,23 @@
+--- ## Now we are working the with the labels and selector concept
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod
+  annotations:
+    description: "Now we are working the with the labels and selector concept"
+  labels:
+    env: development
+    class: pods
+spec:
+  containers:
+    - name: c00
+      image: shubhamsonirg/myimage7
+      # args:
+        # - /bin/bash
+        # - -c
+        # - while true; do echo "Hello shubham"; sleep 30; done
+      env:
+        - name: MYNAME
+          value: SHUBHAM-APACHE
+      ports:
+        - containerPort: 80

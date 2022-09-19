@@ -1,0 +1,24 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: hostpath
+  annotations:
+    description: "Now we are working on the volumes type in kubernetes"
+spec:
+  containers:
+    - name: c00
+      image: ubuntu
+      args: 
+        - /bin/bash
+        - -c
+        - while true; do echo "hello shubham"; sleep 30; done
+      env:
+        - name: MYNAME
+          value: VOLUME
+      volumeMounts:
+        - name: hostvol
+          mountPath: "/tmp/hostpath"
+  volumes:
+    - name: hostvol
+      hostPath:
+        path: /tmp/data   

@@ -1,0 +1,20 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod
+  annotations:
+    description: "Now we are working the with the labels and selector concept"
+  labels:
+    env: development
+    class: pods
+spec:
+  containers:
+    - name: c00
+      image: shubhamsonirg/myimage7
+      env:
+        - name: MYNAME
+          value: SHUBHAM-APACHE
+      ports:
+        - containerPort: 80
+  nodeSelector:
+    hardware: t2.medium

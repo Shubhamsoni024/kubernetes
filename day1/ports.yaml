@@ -1,0 +1,17 @@
+--- ## Now we are working with the environment variables in kubernetes
+kind: Pod
+apiVersion: v1
+metadata:
+  name: environment
+  annotations:
+    description: "Now we are working with the environment variables in kubernetes"
+spec:
+  containers:
+    - name: c00
+      image: shubhamsonirg/myimage
+      env:
+        - name: KEY
+          value: ENVIORNMENT-VARIABLE
+      ports:
+        - containerPort: 80
+

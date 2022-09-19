@@ -1,0 +1,35 @@
+--- # Now we are working on the volumes type in kubernetes
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod
+  annotations:
+    description: "Now we are working on the volumes type in kubernetes"
+spec:
+  containers:
+    - name: c00
+      image: ubuntu
+      args: 
+        - /bin/bash
+        - -c
+        - while true; do echo "hello shubham"; sleep 30; done
+      env:
+        - name: MYNAME
+          value: VOLUME
+      volumeMounts:
+        - name: xchange
+          mountPath: "/tmp/xchange"
+    
+    - name: c01
+      image: centos
+      args: 
+        - /bin/bash
+        - -c
+        - while true; do echo "hello soni"; sleep 30; done
+      volumeMounts:
+        - name: xchange
+          mountPath: /tmp/data
+  volumes:
+    - name: xchange
+      emptyDir: {}      
+  

@@ -1,0 +1,15 @@
+--- ## kubernetes pod 1
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod
+spec:
+  containers:
+    - name: c00
+      image: ubuntu
+      #command: ["/bin/bash", "-c","while true; echo 'Hello Shubham'; sleep 30; done"]
+      args:
+       - /bin/bash
+       - -c
+       - echo "hello shubham"; sleep 30
+  restartPolicy: Never ## default is always and usually needs to define with jobs, cronjobs objects

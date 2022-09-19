@@ -1,0 +1,13 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod2
+spec:
+  containers:
+    - name: c01
+      image: shubhamsonirg/myimage7
+      env:
+        - name: MYNAME
+          value: networking
+      ports:
+        - containerPort: 8080

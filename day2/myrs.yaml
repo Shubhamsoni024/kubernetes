@@ -1,0 +1,33 @@
+--- ## Now we are working the the replica set
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  name: myreplica
+  annotations: 
+    description: "this is my replica set annotations !!!"
+  labels:
+    env: development
+    class: pods
+    love: devops
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+      - {key: env, operator: In, values: [development, deploy, develop]}
+      - {key: myname, operator: NotIn, values: [prod, production]}
+  template:
+    metadata:
+      name: testpod
+      annotations:
+        description: "this is my replica set testpod's annotations !!"
+      labels:
+        env: development
+    spec:
+      containers:
+        - name: c00
+          image: shubhamsonirg/myimage7
+          env:
+            - name: MYNAME
+              value: SHUBHAM-REPLICASET
+          ports:
+            - containerPort: 80

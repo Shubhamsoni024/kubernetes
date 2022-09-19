@@ -1,0 +1,13 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod
+spec:
+  containers:
+    - name: c00
+      image: nginx
+      env:
+        - name: MYNAME
+          value: networking
+      ports:
+        - containerPort: 80
