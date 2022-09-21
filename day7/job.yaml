@@ -1,0 +1,22 @@
+--- ## Now we are working with the jobs it is basically a pod itself and after completion of work it gets terminated
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: myjob
+  annotations:
+    description: "Now we are working with the jobs it is basically a pod itself and after completion of work it gets terminated"
+spec:
+  template:
+    metadata:
+      name: testjob
+      annotations: 
+        description: "This is my pod annotations !!!"
+    spec:
+      containers:
+        - name: c00
+          image: centos:7
+          args:
+            - /bin/bash
+            - -c
+            - echo "Hello Shubham"; sleep 20;
+      restartPolicy: Never ## default is always

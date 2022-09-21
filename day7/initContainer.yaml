@@ -1,0 +1,25 @@
+--- ## Now we are working the init containers concept in kubernetes
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod
+  annotations:
+    description: "Now we are working with the init containers !!"
+spec:
+  initContainers:
+    - name: c00
+      image: centos:7
+      command: ["/bin/bash", "-c", "echo LIKE AND SUBSCRIBE TO MY CHANNEL > /tmp/xchange/tempfile; sleep 3"]
+      volumeMounts:
+      - name: xchange
+        mountPath: "/tmp/xchange"
+  containers:
+    - name: c01
+      image: centos:7
+      command: ["/bin/bash", "-c", "while true; do echo `cat /tmp/data/tempfile`; sleep 5; done"]
+      volumeMounts:
+      - name: xchange
+        mountPath: "/tmp/data"
+  volumes:
+    - name: xchange
+      emptyDir: {}

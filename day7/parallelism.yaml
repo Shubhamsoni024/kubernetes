@@ -1,0 +1,24 @@
+--- ## Now we are working with the paralellism concept in kubernetes jobs 
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: parallelism
+  annotations:
+    description: "Now we are working on the concept of parallelism in kubernetes !!!"
+spec:
+  parallelism: 5
+  activeDeadlineSeconds: 10
+  template:
+    metadata:
+      name: myparallelism-pod
+      annotations:
+        description: "Now we are working the the parallelism pod"
+    spec:
+      containers:
+        - name: c00
+          image: centos
+          args:
+            - /bin/bash
+            - -c
+            - echo "Hello parallelism task"; sleep 20
+      restartPolicy: Never ## default is always and need to set only with jobs object in kubernetes

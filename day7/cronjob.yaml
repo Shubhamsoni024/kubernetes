@@ -1,0 +1,27 @@
+--- ## Now we are working with the cronjob in kubernetes
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: mycronjob
+  annotations:
+    description: "this is cronjob annotation !!"
+spec:
+  schedule: "*  *  *  *  *"
+  jobTemplate:
+    spec:
+      parallelism: 5
+      activeDeadlineSeconds: 10
+      template:
+        metadata:
+          name: mybackupjob
+          annotations:
+            description: "this is mybackup job annotation for pod !!"
+        spec:
+          containers:
+            - name: c00
+              image: centos:7
+              args:
+                - /bin/bash
+                - -c
+                - echo "Taking backup"; sleep 30;
+          restartPolicy: Never # default is always but need to set it for Job and CronJob object
