@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: testpod
+spec:
+  containers:
+    - name: c00
+      image: ubuntu
+      volumeMounts:
+        - name: configmap
+          mountPath: "/tmp/config"
+  volumes:
+    - name: configmap
+      configMap:
+        name: mymap
+        items:
+          - key: sample.conf
+            path: sample.conf

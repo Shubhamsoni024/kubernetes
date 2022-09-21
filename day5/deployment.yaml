@@ -17,9 +17,9 @@ spec:
         image: centos
         command: ["bin/bash", "-c", "sleep 10000"]
         volumeMounts:
-        - name: mypd
+        - name: mypv
           mountPath: "/tmp/persistent"
       volumes:
-        - name: mypd
+        - name: mypv
           persistentVolumeClaim:
             claimName: mypvc
