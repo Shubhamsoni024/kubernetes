@@ -1,0 +1,40 @@
+--- ## Now we are working the resources in kubernetes
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mydeploy
+  namespace: dev
+  annotations:
+    description: "Now we are working the resources in kubernetes !!"
+  labels:
+    env: development
+    class: pods
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      env: development
+  template:
+    metadata:
+      name: testpod
+      annotations: 
+        description: "this is my testpod annotation !!"
+      labels:
+        env: development
+    spec:
+      containers:
+        - name: c00
+          image: httpd
+          env:
+            - name: MYNAME
+              value: RESOURCES
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+

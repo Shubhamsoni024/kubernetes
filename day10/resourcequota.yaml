@@ -1,0 +1,12 @@
+--- # we we are setting the hardquota on our namespaces
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: myquota
+  namespace: dev
+spec:
+  hard:
+    limits.cpu: "400m"
+    limits.memory: "512Mi"
+    requests.cpu: "200m"
+    requests.memory: "256Mi"

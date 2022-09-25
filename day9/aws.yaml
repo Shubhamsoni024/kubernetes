@@ -1,0 +1,45 @@
+--- # we are using the aws elastic block store
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mydeploy
+  annotations:
+    description: "Now we want to use the pv that we have created with our pods !!"
+  labels:
+    env: development
+    class: pvc
+spec:
+  replicas: 1
+  selector: 
+    matchExpressions:
+      - {key: env, operator: In, values: [development, dev, deployment]}
+      - {key: myname, operator: NotIn, values: [prod, production]}
+  template:
+    metadata:
+      name: testpod
+      annotations:
+        description: "this is test pod description !!"
+      labels:
+        env: development
+    spec:
+      containers:
+      - name: c00
+        image: centos
+        args:
+        - /bin/bash
+        - -c 
+        - while true; do echo "hello shubham"; sleep 5; done
+        env:
+        - name: MYNAME
+          value:  SHUBHAM-VOL
+        volumeMounts:
+        - name: mypd
+          mountPath: "/tmp/mypd"
+      volumes:
+        - name: mypd
+          awsElasticBlockStore:
+            volumeID: vol-07d689a0e970da5cd
+            fsType: ext4
+      nodeSelector:
+        hardware: t2.medium
+

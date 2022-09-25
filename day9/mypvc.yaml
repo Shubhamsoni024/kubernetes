@@ -1,0 +1,16 @@
+--- # Now since the persistent volume has been created we need to claim to so that it can be used in our cluster
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mypvc
+  annotations:
+    description: "Now since the persistent volume has been created we need to claim to so that it can be used in our cluster !!"
+  labels:
+    env: development
+    class: pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

@@ -1,0 +1,19 @@
+--- ## Now we are working the persistent volume
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mypv
+  annotations:
+    description: "Now we are working the persistent volume !!"
+  labels:
+    env: development
+    class: pods
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  awsElasticBlockStore:
+    volumeID: vol-07d689a0e970da5cd	
+    fsType: ext4

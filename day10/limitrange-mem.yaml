@@ -1,0 +1,17 @@
+--- ## we are setting the limit range based on the RAM
+kind: LimitRange
+apiVersion: v1
+metadata:
+  name: default-memory-range
+  namespace: dev
+  annotations:
+    description: "we are setting the limit range based on the RAM"
+  labels:
+    env: development
+spec:
+  limits:
+  - default:
+      memory: "1024Mi"
+    defaultRequest:
+      memory: "128Mi"
+    type: Container

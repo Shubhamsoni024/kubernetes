@@ -1,0 +1,16 @@
+--- ## Now we are working the the autoscaling in kubernetes with the service
+kind: Service
+apiVersion: v1
+metadata:
+  name: mylb
+  annotations:
+    description: "Now we are working the the autoscaling in kubernetes with the service !!"
+spec:
+  ports:
+  - port: 80 ## container's port
+    targetPort: 80 ## pods port
+    nodePort: 31200
+    name: mylb
+  selector:
+    env: development
+  type: NodePort

@@ -1,0 +1,19 @@
+--- ## Now we are working the limit range min and max
+kind: LimitRange
+apiVersion: v1
+metadata:
+  name: mem-min-max-demo
+  namespace: dev
+  annotations:
+    description: "Now we are working the limit range min and max"
+  labels:
+    env: development
+spec:
+  limits:
+  - max: 
+      cpu: "1"
+      memory: "512Mi"
+    min:
+      cpu: "100m"
+      memory: "128Mi"
+    type: Container

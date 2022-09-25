@@ -1,0 +1,30 @@
+--- ## Now we are working the host to container volume
+kind: Pod
+apiVersion: v1
+metadata:
+  name: myhostvol
+  annotations:
+    description: "Now we are working the host to container volume !!"
+  labels:
+    env: development
+    class: pods
+spec:
+  containers:
+    - name: c00
+      image: centos
+      args:
+        - /bin/bash
+        - -c 
+        - while true; do echo "Hello shubham"; sleep 5; done
+      env:
+        - name: MYNAME
+          value: MYHOSTVOL
+      volumeMounts:
+        - name: xchange
+          mountPath: "/tmp/xchange"
+  volumes:
+    - name: xchange
+      hostPath:
+        path: "/tmp/data"
+  nodeSelector:
+    hardware: t2.medium

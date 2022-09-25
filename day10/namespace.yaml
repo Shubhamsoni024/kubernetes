@@ -1,0 +1,9 @@
+--- ## Now we are creating the Namespace
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: dev
+  annotations: 
+    description: "Now we are creating the Namespace !!!"
+  labels:
+    env: development

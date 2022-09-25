@@ -1,0 +1,15 @@
+--- ## now we are working with the limitRange object in kubernetes
+kind: LimitRange
+apiVersion: v1
+metadata:
+  name: pod-resource-limits
+  namespace: dev
+  annotations: 
+    description: "we are adding the resources range limits on per pods basis"
+  labels:
+    env: development
+spec:
+  limits:
+  - default: 
+      cpu: 1
+    type: Container

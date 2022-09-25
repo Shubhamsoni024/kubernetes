@@ -1,0 +1,39 @@
+--- ## Now we are on the volumes in kubernetes
+kind: Pod
+apiVersion: v1
+metadata:
+  name: myvol
+  annotations:
+    description: "Now we are on the volumes in kubernetes !!"
+  labels:
+    env: development
+    class: pods
+spec:
+  containers:
+    - name: c00
+      image: ubuntu
+      args:
+        - /bin/bash
+        - -c
+        - while true; do echo "Hello soni"; sleep 10; done
+      env:
+        - name: MYNAME
+          value: HTTPD
+      volumeMounts:
+        - name: xchange
+          mountPath: "/tmp/xchange"
+    - name: c01
+      image: centos
+      command: ["/bin/bash", "-c", "while true; do echo 'Hello shubham'; sleep 30; done"]
+      env:
+        - name: MYNAME
+          value: VOLUME-HOST
+      volumeMounts:
+        - name: xchange
+          mountPath: "/tmp/data"
+  volumes:
+    - name: xchange
+      emptyDir: {}
+  nodeSelector:
+    hardware: t2.medium
+

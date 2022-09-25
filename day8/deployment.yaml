@@ -1,0 +1,50 @@
+--- ## Now we are working with the kubernetes autoscaling
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mydeployment
+  annotations:
+    description: "Now we are working with the kubernetes autoscaling !!"
+  labels:
+    env: development
+    class: pods
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+      - {key: env, operator: In, values: [development, dev, deployment]}
+      - {key: myname, operator: NotIn, values: [prod, production]}
+  template:
+    metadata:
+      name: mywebsite
+      annotations:
+        description: "This is mywebsite pod annotation !!"
+      labels:
+        env: development
+    spec:
+      containers:
+        - name: c00
+          image: shubhamsonirg/myimage
+          env:
+          - name: MYNAME
+            value: SHUBHAM-APACHE
+          ports:
+          - containerPort: 80
+          livenessProbe:
+            exec:
+              command: 
+              - cat
+              - /var/www/html/index.html
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 30
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+      nodeSelector:
+        hardware: t2.medium
+  
