@@ -1,0 +1,29 @@
+--- ## Now we are working with jobs in kubernetes
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: myfirstjob
+  annotations: 
+    description: "this is my first job !!"
+  labels:
+    env: jobs
+spec:
+  template:
+    metadata:
+      name: testpod
+      annotations:
+        description: "this is my pod annotations !!"
+      labels:
+        env: jobs
+    spec:
+      containers:
+        - name: c00
+          image: centos:7
+          args:
+            - /bin/bash
+            - -c
+            - echo "Hello Shubham"; sleep 10
+          env:
+            - name: MYNAME
+              value: JOB-CONT
+      restartPolicy: Never ## default is always

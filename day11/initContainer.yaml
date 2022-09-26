@@ -1,0 +1,49 @@
+--- ## Now we are working on the init container
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mydeployment
+  annotations: 
+    description: "Now we are working on the init container !!"
+  labels:
+    env: development
+    class: pods
+spec:
+  replicas: 2
+  selector: 
+    matchExpressions:
+      - {key: env, operator: In, values: [dev, development, deployment]}
+      - {key: myname, operator: NotIn, values: [prod, production]}
+  template:
+    metadata:
+      name: testpod
+      annotations:
+        description: "this is testpod annotation !!"
+      labels:
+        env: development
+    spec:
+      initContainers:
+        - name: c00
+          image: centos:7
+          args:
+            - /bin/bash
+            - -c
+            - echo "Like and subscribe to my channel !!" > /tmp/xchange/testfile; sleep 10
+          volumeMounts:
+            - name: xchange
+              mountPath: "/tmp/xchange"
+      containers:
+        - name: c01
+          image: centos:7
+          args:
+            - /bin/bash
+            - -c 
+            - while true; do echo `cat /tmp/data/testfile`; sleep 10; done
+          volumeMounts:
+            - name: xchange
+              mountPath: "/tmp/data"
+      volumes:
+        - name: xchange
+          emptyDir: {}
+      nodeSelector:
+        hardware: t2.medium    

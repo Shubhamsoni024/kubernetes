@@ -1,0 +1,31 @@
+--- ## Now we are working the cronjobs on kubernetes and automating our daily backups and log retention task
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: mycronjob
+  annotations:
+    description: "This is my cronjob annotations !!"
+  labels:
+    app: cronjob
+spec:
+  schedule: "*  *  *  *  *"
+  jobTemplate:
+    spec:
+      parallelism: 5
+      activeDeadlineSeconds: 10
+      template:
+        metadata:
+          name: mycron-pod
+          annotations:
+            description: "this is testpod !!!"
+          labels:
+            app: cronjob
+        spec:
+          containers:
+            - name: c00
+              image: centos:7
+              args:
+                - /bin/bash
+                - -c
+                - echo "Hello shubham"; sleep 30
+          restartPolicy: Never  
